@@ -5,4 +5,9 @@ public class HelloWorldTest {
   public void testHelloWorld() {
     System.out.println("Hello World");
   }
+
+  @Test
+  public void testHelloName() {
+    System.out.println("Hello from Ksenia");
+  }
 }
