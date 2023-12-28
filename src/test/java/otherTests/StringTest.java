@@ -1,4 +1,4 @@
-package tests;
+package otherTests;
 
 import org.junit.jupiter.api.Test;
 
