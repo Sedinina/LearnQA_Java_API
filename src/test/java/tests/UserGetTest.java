@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
@@ -14,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.qameta.allure.SeverityLevel.MINOR;
+
 @Epic("Showing user data cases")
 @Feature("Showing user data")
 public class UserGetTest extends BaseTestCase {
@@ -22,8 +22,10 @@ public class UserGetTest extends BaseTestCase {
   private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
   @Test
+  @Owner("Sedinina Ksenia")
   @Description("This test unauthorized request for data - we only received a username there")
   @DisplayName("Test unauthorized request only username")
+  @Severity(MINOR)
   public void testGetUserDataNotAuth() {
 
     Response responseUserData = RestAssured
