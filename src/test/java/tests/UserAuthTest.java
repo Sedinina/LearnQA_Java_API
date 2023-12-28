@@ -49,7 +49,7 @@ public class UserAuthTest extends BaseTestCase {
     Response responseCheckAuth = apiCoreRequests
             .makeGetRequest("https://playground.learnqa.ru/api/user/auth", this.header, this.cookie);
 
-    Assertions.asserJsonByName(responseCheckAuth, "user_id", this.userIdOnAuth);
+    Assertions.assertJsonByName(responseCheckAuth, "user_id", this.userIdOnAuth);
   }
 
   @Description("This test checks authorization status w/o sending auth cookie or token")
@@ -63,7 +63,7 @@ public class UserAuthTest extends BaseTestCase {
                       "https://playground.learnqa.ru/api/user/auth",
                       this.cookie
               );
-      Assertions.asserJsonByName(responseForCheck, "user_id", 0);
+      Assertions.assertJsonByName(responseForCheck, "user_id", 0);
 
     } else if (condition.equals("headers")) {
       Response responseForCheck = apiCoreRequests.makeGetRequestWithToken
@@ -71,7 +71,7 @@ public class UserAuthTest extends BaseTestCase {
                       "https://playground.learnqa.ru/api/user/auth",
                       this.header
               );
-      Assertions.asserJsonByName(responseForCheck, "user_id", 0);
+      Assertions.assertJsonByName(responseForCheck, "user_id", 0);
     } else {
       throw new IllegalArgumentException("Condition value is know: " + condition);
     }

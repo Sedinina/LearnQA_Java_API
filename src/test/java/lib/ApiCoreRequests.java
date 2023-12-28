@@ -3,6 +3,7 @@ package lib;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.Header;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -18,6 +19,16 @@ public class ApiCoreRequests {
             .header(new Header("x-csrf-token", token))
             .cookie("auth_sid", cookie)
             .get(url)
+            .andReturn();
+  }
+
+  @Step("Make a Get-request with token, auth cookie, Id")
+  public Response makeGetRequestWithId(String url, String token, String cookie, String userId) {
+    return given()
+            .filter(new AllureRestAssured())
+            .header(new Header("x-csrf-token", token))
+            .cookie("auth_sid", cookie)
+            .get(url+userId)
             .andReturn();
   }
 
@@ -57,6 +68,37 @@ public class ApiCoreRequests {
             .post(url)
             .andReturn();
 
+  }
+
+  @Step("Make a POST-request to get data user")
+  public JsonPath makePostRequestUser(String url, Map<String, String> userData) {
+    JsonPath responseCreateAuth =
+            given()
+                    .filter(new AllureRestAssured())
+                    .body(userData)
+                    .post(url)
+                    .jsonPath();
+    return responseCreateAuth;
+  }
+
+  @Step("Make a POST-request to edit user")
+  public Response makePostRequestEditUser(String url, String token, String cookie, Map<String, String> editData, String userId) {
+    return  given()
+            .filter(new AllureRestAssured())
+            .header("x-csrf-token", token )
+            .cookie("auth_sid", cookie)
+            .body(editData)
+            .put(url + userId)
+            .andReturn();
+  }
+
+  @Step("Make a POST-request to edit user only userId")
+  public Response makePostRequestEditUser(String url, Map<String, String> editData, String userId) {
+    return  given()
+            .filter(new AllureRestAssured())
+            .body(editData)
+            .put(url + userId)
+            .andReturn();
   }
 
 
